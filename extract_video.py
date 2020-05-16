@@ -45,7 +45,7 @@ def download(metafile, work_dir, offset=0, debugging=False):
     print("[ INFO ] start to download video segments... (#files={})".format(len(param_list)-offset))
     for idx, param in enumerate(param_list[offset:]):
         print('        ', param)
-        urllib.request.urlretrieve (request_url+param, os.path.join(work_dir, "{:03}.ts".format(idx)))
+        urllib.request.urlretrieve (request_url+param, os.path.join(work_dir, "{:03}.ts".format(offset+idx)))
 
 if __name__=='__main__':
     # parse arguments
