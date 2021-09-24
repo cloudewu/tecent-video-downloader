@@ -1,7 +1,12 @@
 import json
-import os.path
+import os
 import urllib.parse
 import urllib.request
+
+def ensure_exist(dir_name):
+    if not os.path.isdir(dir_name):
+        os.makedirs(dir_name)
+    return
 
 def get_meta(metafile, work_dir, debugging=False):
     with open(metafile, 'r') as f:
@@ -18,6 +23,7 @@ def get_meta(metafile, work_dir, debugging=False):
     print('[ INFO ] get request URL:\n        ', request_url)
     print('[ INFO ] get metafile name: ', meta_name)
     
+    ensure_exist(work_dir)
     meta_path = os.path.join(work_dir, meta_name)
     if not os.path.exists(meta_path):
         print('[ INFO ] meta file not found. Automatically downloading...')
@@ -26,6 +32,7 @@ def get_meta(metafile, work_dir, debugging=False):
     return request_url, meta_name
 
 def get_param_list(metafile, work_dir, debugging=False):
+    ensure_exist(work_dir)
     filepath = os.path.join(work_dir, metafile)
     param_list = []
     with open(filepath, 'r') as f:

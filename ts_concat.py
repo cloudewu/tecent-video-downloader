@@ -2,6 +2,11 @@ import glob
 import os.path
 import argparse
 
+def ensure_exist(dir_name):
+    if not os.path.isdir(dir_name):
+        os.makedirs(dir_name)
+    return
+    
 def concat_files(filenames, output_file):
     if os.path.exists(output_file):
         print('[ WARNING ] Overwriting existing file: ', output_file)
@@ -18,6 +23,7 @@ def concat_files(filenames, output_file):
 def concat_all(work_dir='.', pattern='*.ts', output_file='merge.ts'):
     from glob import glob
     filenames = glob(os.path.join(work_dir, pattern))
+    ensure_exist(work_dir)
     concat_files(filenames, os.path.join(work_dir, output_file))
     return
 
